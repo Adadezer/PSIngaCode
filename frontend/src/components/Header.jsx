@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function Header(props) {
   return (
-    <Box sx={{ flexGrow: 1 }} { ...props} >
+    <Box sx={{ flexGrow: 1, marginBottom: 2 }} { ...props} >
       <AppBar position="static">
         <Toolbar>
           <Typography
