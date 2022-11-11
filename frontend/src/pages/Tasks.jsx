@@ -1,7 +1,49 @@
-import React from "react"
+import { Grid } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import Header from "../components/Header"
+import CardTask from "../components/CardTask"
+import axios from "axios";
 
 export default function Tasks() {
+  const [listTasks, setlistTasks] = useState([]);
+
+  const getTasks = async () => {
+    try {
+      const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
+      setlistTasks(result.data);
+      return result.data
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   return (
-    <h1>tasks teste</h1>
+    <>
+      <Header titleHeader="Tarefas"/>
+      <Grid
+        container
+        component="form"
+        spacing={1}
+        p={2}
+        noValidate
+        autoComplete="off"
+        sx={{
+          overflow: "auto",
+          maxHeight: "86vh",
+          display: "flex",
+          justifyContent: "center"
+        }}
+      >
+        {
+          listTasks.map((element, index) => (
+            <CardTask task={ element } key={ index } />
+          ))
+        }
+      </Grid>
+    </>
   )
 }
