@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import Header from "../components/Header"
 import CardTask from "../components/CardTask"
 import axios from "axios";
+import CrudTask from "../components/CrudTask/CrudTask";
 
 export default function Tasks() {
   const [listTasks, setlistTasks] = useState([]);
@@ -24,6 +25,7 @@ export default function Tasks() {
   return (
     <>
       <Header titleHeader="Tarefas"/>
+      <CrudTask />
       <Grid
         container
         component="form"
@@ -33,11 +35,12 @@ export default function Tasks() {
         autoComplete="off"
         sx={{
           overflow: "auto",
-          maxHeight: "86vh",
+          maxHeight: "82vh",
           display: "flex",
           justifyContent: "center"
         }}
       >
+        
         {
           listTasks.map((element, index) => (
             <CardTask task={ element } key={ index } />
