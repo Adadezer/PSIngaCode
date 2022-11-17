@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Grid, IconButton, Modal } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FormAddTask from "./FormAddTask";
+import IngaCodeContext from "../../../context/IngaCodeContext";
 
 export default function ModalAddTask(props) {
-  const [open, setOpen] = useState(false);
-  const OpenModal = () => setOpen(true);
-  const CloseModal = () => setOpen(false);
+  const {modal, setModal} = useContext(IngaCodeContext);
+  const OpenModal = () => setModal(true);
+  const CloseModal = () => setModal(false);
 
   return (
     <Grid item {...props}>
@@ -15,7 +16,7 @@ export default function ModalAddTask(props) {
       </IconButton>
 
       <Modal
-        open={open}
+        open={modal}
         onClose={CloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
