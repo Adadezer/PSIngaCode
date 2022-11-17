@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { MenuItem, TextField } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
+import IngaCodeContext from "../../../context/IngaCodeContext";
 
 export default function FormAddTask() {
   const style = {
@@ -16,31 +17,35 @@ export default function FormAddTask() {
     p: 4,
   };
 
-  const [listProjects, setlistProjects] = useState([]);
+  const {
+    setModal,
+    shouldUpdate,
+    setShouldUpdate,
+    listTasks,
+  } = useContext(IngaCodeContext);
 
-  const getTasks = async () => {
-    try {
-      const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
-      setlistProjects(result.data);
-      return result.data
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const createTask = () => {
+    axios.post("https://636c08487f47ef51e140c97e.mockapi.io/Tasks", inputValue)
+      .then(() => {
+        setShouldUpdate(true)
+        console.log("shouldUpdate create: ", shouldUpdate)
+        setModal(false)
+      })
+      .catch((error) => console.log(error));
+  }
 
-  useEffect(() => {
-    getTasks();
-  }, []);
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    description: "",
+    projectName: "",
+    collaboratorName: ""
+  });
 
-  const [selectedProject, setSelectedProject] = useState("");
-  const [selectedCollaborator, setSelectedCollaborator] = useState("");
-
-  const handleChangeProject = (event) => {
-    setSelectedProject(event.target.value);
-  };
-
-  const handleChangeCollaborator = (event) => {
-    setSelectedCollaborator(event.target.value);
+  const handleChange = (target) => {
+    setInputValue({
+      ...inputValue,
+      [target.name]: target.value
+    });
   };
 
   return (
@@ -54,6 +59,9 @@ export default function FormAddTask() {
         <TextField
           fullWidth
           label="Nome"
+          name="name"
+          value={inputValue.name}
+          onChange={(e) => handleChange(e.target)}
           helperText="Digite o nome da tarefa"
           variant="standard"
         />
@@ -62,6 +70,9 @@ export default function FormAddTask() {
         <TextField
           fullWidth
           label="Descrição"
+          name="description"
+          value={inputValue.description}
+          onChange={(e) => handleChange(e.target)}
           helperText="Descreva o que é essa tarefa"
           variant="standard"
         />
@@ -71,12 +82,13 @@ export default function FormAddTask() {
           fullWidth
           select
           label="Projetos"
-          value={selectedProject}
-          onChange={handleChangeProject}
+          name="projectName"
+          value={inputValue.projectName}
+          onChange={(e) => handleChange(e.target)}
           helperText="Selecione o projeto ao qual a tarefa faz parte"
           variant="standard"
         >
-          {listProjects.map((option) => (
+          {listTasks.map((option) => (
             <MenuItem key={option.id} value={option.projectName}>
               {option.projectName}
             </MenuItem>
@@ -88,18 +100,21 @@ export default function FormAddTask() {
           fullWidth
           select
           label="Colaboradores"
-          value={selectedCollaborator}
-          onChange={handleChangeCollaborator}
+          name="collaboratorName"
+          value={inputValue.collaboratorName}
+          onChange={(e) => handleChange(e.target)}
           helperText="Selecione o colaborador da tarefa"
           variant="standard"
         >
-          {listProjects.map((option) => (
+          {listTasks.map((option) => (
             <MenuItem key={option.id} value={option.collaboratorName}>
               {option.collaboratorName}
             </MenuItem>
           ))}
         </TextField>
       </div>
+      <br />
+      <Button variant="contained" onClick={createTask}>Criar Tarefa</Button>
     </Box>
   );
 }

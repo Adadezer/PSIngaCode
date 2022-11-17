@@ -1,17 +1,22 @@
 import { Grid } from "@mui/material"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect } from "react"
 import Header from "../components/Header"
 import CardTask from "../components/CardTask"
 import axios from "axios";
 import CrudTask from "../components/CrudTask/CrudTask";
+import IngaCodeContext from "../context/IngaCodeContext";
 
 export default function Tasks() {
-  const [listTasks, setlistTasks] = useState([]);
+  const {
+    listTasks,
+    setListTasks,
+    shouldUpdate,
+    setShouldUpdate 
+  } = useContext(IngaCodeContext);
 
   const getTasks = async () => {
     try {
       const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
-      setlistTasks(result.data);
       return result.data
     } catch (error) {
       console.error(error);
@@ -19,8 +24,12 @@ export default function Tasks() {
   };
 
   useEffect(() => {
-    getTasks();
-  }, []);
+    getTasks().then((data) => {
+      setListTasks(data);
+      setShouldUpdate(false);
+      console.log("shouldUpdate get: ", shouldUpdate)
+    });
+  }, [shouldUpdate]);
 
   return (
     <>
@@ -40,7 +49,6 @@ export default function Tasks() {
           justifyContent: "center"
         }}
       >
-        
         {
           listTasks.map((element, index) => (
             <CardTask task={ element } key={ index } />
