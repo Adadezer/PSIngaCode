@@ -19,20 +19,9 @@ export default function FormAddTask() {
 
   const {
     setModal,
-    shouldUpdate,
     setShouldUpdate,
     listTasks,
   } = useContext(IngaCodeContext);
-
-  const createTask = () => {
-    axios.post("https://636c08487f47ef51e140c97e.mockapi.io/Tasks", inputValue)
-      .then(() => {
-        setShouldUpdate(true)
-        console.log("shouldUpdate create: ", shouldUpdate)
-        setModal(false)
-      })
-      .catch((error) => console.log(error));
-  }
 
   const [inputValue, setInputValue] = useState({
     name: "",
@@ -47,6 +36,17 @@ export default function FormAddTask() {
       [target.name]: target.value
     });
   };
+
+  const createTask = async () => {
+    try {
+      await axios.post("https://636c08487f47ef51e140c97e.mockapi.io/Tasks", inputValue);
+      setShouldUpdate(true);
+      return setModal(false);
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <Box

@@ -17,18 +17,16 @@ export default function Tasks() {
   const getTasks = async () => {
     try {
       const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
-      return result.data
+      setListTasks(result.data);
+      return setShouldUpdate(false);
+
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getTasks().then((data) => {
-      setListTasks(data);
-      setShouldUpdate(false);
-      console.log("shouldUpdate get: ", shouldUpdate)
-    });
+    getTasks();
   }, [shouldUpdate]);
 
   return (
