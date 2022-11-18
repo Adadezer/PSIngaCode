@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import IngaCodeContext from "./IngaCodeContext";
 
 export default function IngaCodeProvider({ children }) {
-  const [modal, setModal] = useState(false);
-  const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+  const [shouldUpdateAdd, setShouldUpdateAdd] = useState(false);
+  const [shouldUpdateEdit, setShouldUpdateEdit] = useState(false);
   const [listTasks, setListTasks] = useState([]);
 
   const myContext = {
-    modal,
-    setModal,
-    shouldUpdate,
-    setShouldUpdate,
+    modalAdd,
+    setModalAdd,
+    shouldUpdateAdd,
+    setShouldUpdateAdd,
     listTasks,
-    setListTasks
+    setListTasks,
+    modalEdit,
+    setModalEdit,
+    shouldUpdateEdit,
+    setShouldUpdateEdit
   };
 
   return (

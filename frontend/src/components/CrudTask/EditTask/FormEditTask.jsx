@@ -18,12 +18,13 @@ export default function FormAddTask() {
   };
 
   const {
-    setModalAdd,
-    setShouldUpdateAdd,
+    setModalEdit,
+    setShouldUpdateEdit,
     listTasks,
   } = useContext(IngaCodeContext);
 
   const [inputValue, setInputValue] = useState({
+    id: "",
     name: "",
     description: "",
     projectName: "",
@@ -36,12 +37,14 @@ export default function FormAddTask() {
       [target.name]: target.value
     });
   };
-
-  const createTask = async () => {
+  console.log("inputValue: ", inputValue);
+  const updateTask = async () => {
     try {
-      await axios.post("https://636c08487f47ef51e140c97e.mockapi.io/Tasks", inputValue);
-      setShouldUpdateAdd(true);
-      return setModalAdd(false);
+      await axios.put(
+        `https://636c08487f47ef51e140c97e.mockapi.io/Tasks/${inputValue.id}`, inputValue
+      );
+      setShouldUpdateEdit(true);
+      return setModalEdit(false);
 
     } catch (error) {
       console.error(error)
@@ -55,6 +58,24 @@ export default function FormAddTask() {
       noValidate
       autoComplete="off"
     >
+      <div>
+        <TextField
+          fullWidth
+          select
+          label="Id"
+          name="id"
+          value={inputValue.id}
+          onChange={(e) => handleChange(e.target)}
+          helperText="Selecione o identificador da tarefa (id)"
+          variant="standard"
+        >
+          {listTasks.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.id}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
       <div>
         <TextField
           fullWidth
@@ -114,7 +135,7 @@ export default function FormAddTask() {
         </TextField>
       </div>
       <br />
-      <Button variant="contained" onClick={createTask}>Criar Tarefa</Button>
+      <Button variant="contained" onClick={updateTask}>Editar Tarefa</Button>
     </Box>
   );
 }
