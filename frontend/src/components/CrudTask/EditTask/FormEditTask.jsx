@@ -12,7 +12,7 @@ export default function FormAddTask() {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "#ffffff",
-    border: "2px solid #1b80f5",
+    border: "2px solid #029e31",
     boxShadow: 54,
     p: 4,
   };
@@ -135,7 +135,7 @@ export default function FormAddTask() {
         </TextField>
       </div>
       <br />
-      <Button variant="contained" onClick={updateTask}>Editar Tarefa</Button>
+      <Button variant="contained" onClick={updateTask} color="success">Editar Tarefa</Button>
     </Box>
   );
 }
