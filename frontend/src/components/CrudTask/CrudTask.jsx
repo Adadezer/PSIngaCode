@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material"
 import React from "react"
 import AddTask from "./AddTask/ModalAddTask"
-import EditTask from "./EditTask"
+import EditTask from "./EditTask/ModalEditTask"
 import DeleteTask from "./DeleteTask"
 
 export default function CrudTask() {

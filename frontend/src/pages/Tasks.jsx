@@ -10,15 +10,18 @@ export default function Tasks() {
   const {
     listTasks,
     setListTasks,
-    shouldUpdate,
-    setShouldUpdate 
+    shouldUpdateAdd,
+    setShouldUpdateAdd,
+    shouldUpdateEdit,
+    setShouldUpdateEdit
   } = useContext(IngaCodeContext);
 
   const getTasks = async () => {
     try {
       const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
       setListTasks(result.data);
-      return setShouldUpdate(false);
+      setShouldUpdateEdit(false)
+      return setShouldUpdateAdd(false);
 
     } catch (error) {
       console.error(error);
@@ -27,7 +30,7 @@ export default function Tasks() {
 
   useEffect(() => {
     getTasks();
-  }, [shouldUpdate]);
+  }, [shouldUpdateAdd, shouldUpdateEdit]);
 
   return (
     <>

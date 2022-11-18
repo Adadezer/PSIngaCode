@@ -4,22 +4,20 @@ import AddIcon from "@mui/icons-material/Add";
 import FormAddTask from "./FormAddTask";
 import IngaCodeContext from "../../../context/IngaCodeContext";
 
-export default function ModalAddTask(props) {
-  const {modal, setModal} = useContext(IngaCodeContext);
-  const OpenModal = () => setModal(true);
-  const CloseModal = () => setModal(false);
+export default function ModalAddTask() {
+  const {modalAdd, setModalAdd} = useContext(IngaCodeContext);
+  const OpenModal = () => setModalAdd(true);
+  const CloseModal = () => setModalAdd(false);
 
   return (
-    <Grid item {...props}>
+    <Grid item>
       <IconButton onClick={OpenModal} aria-label="add" color="primary">
         <AddIcon />
       </IconButton>
 
       <Modal
-        open={modal}
+        open={modalAdd}
         onClose={CloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <FormAddTask />
       </Modal>

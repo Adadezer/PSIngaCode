@@ -47,10 +47,12 @@ export default function BasicCard(props) {
       <Modal
         open={open}
         onClose={CloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            identificador da tarefa: {props.task.id}
+          </Typography>
+          <br />
           <Typography color="text.secondary">
             Tarefa
           </Typography>
