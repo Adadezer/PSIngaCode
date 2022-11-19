@@ -24,7 +24,7 @@ export default function Tasks() {
       setListTasks(result.data);
       setShouldUpdateEdit(false);
       setShouldUpdateDelete(false);
-      return setShouldUpdateAdd(false);
+      setShouldUpdateAdd(false);
 
     } catch (error) {
       console.error(error);
