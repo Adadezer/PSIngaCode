@@ -3,6 +3,7 @@ import { Button, MenuItem, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import IngaCodeContext from "../../../context/IngaCodeContext";
+import schemaValidations from "../../../helpers/schemaValidations";
 
 export default function FormAddTask() {
   const style = {
@@ -23,26 +24,23 @@ export default function FormAddTask() {
     listTasks,
   } = useContext(IngaCodeContext);
 
-  const [inputValue, setInputValue] = useState({
-    id: "",
-    name: "",
-    description: "",
-    projectName: "",
-    collaboratorName: ""
-  });
+  const [idValue, setIdValue] = useState("");
+  const [isIdInvalid, setIsIdInvalid] = useState(true);
 
   const handleChange = (target) => {
-    setInputValue({
-      ...inputValue,
-      [target.name]: target.value
-    });
+    setIdValue(target.value);
+
+    const schemaValidate = schemaValidations.DeleteTask.validate(target.value)
+    if (schemaValidate.error) {
+      setIsIdInvalid(true);
+    } else {
+      setIsIdInvalid(false);
+    }
   };
-  console.log("inputValue: ", inputValue);
-  const updateTask = async () => {
+
+  const deleteTask = async () => {
     try {
-      await axios.delete(
-        `https://636c08487f47ef51e140c97e.mockapi.io/Tasks/${inputValue.id}`, inputValue
-      );
+      await axios.delete(`https://636c08487f47ef51e140c97e.mockapi.io/Tasks/${idValue}`);
       setShouldUpdateDelete(true);
       return setModalDelete(false);
 
@@ -63,8 +61,8 @@ export default function FormAddTask() {
           fullWidth
           select
           label="Id"
-          name="id"
-          value={inputValue.id}
+          error={isIdInvalid}
+          value={idValue}
           onChange={(e) => handleChange(e.target)}
           helperText="Selecione o identificador da tarefa (id)"
           variant="standard"
@@ -77,7 +75,7 @@ export default function FormAddTask() {
         </TextField>
       </div>
       <br />
-      <Button variant="contained" onClick={updateTask} color="error">Deletar Tarefa</Button>
+      <Button variant="contained" onClick={deleteTask} color="error">Deletar Tarefa</Button>
     </Box>
   );
 }
