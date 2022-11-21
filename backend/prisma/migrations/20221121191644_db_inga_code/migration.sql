@@ -4,8 +4,8 @@ CREATE TABLE `Users` (
     `userName` VARCHAR(250) NOT NULL,
     `password` VARCHAR(512) NOT NULL,
     `createdAt` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `deletedAt` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` TIMESTAMP(3) NOT NULL,
+    `deletedAt` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Users_userName_key`(`userName`),
     PRIMARY KEY (`id`)
