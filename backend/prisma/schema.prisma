@@ -15,8 +15,8 @@ model Users {
   userName      String          @unique @db.VarChar(250)
   password      String          @db.VarChar(512)
   createdAt     DateTime        @default(now()) @db.Timestamp(3)
-  updatedAt     DateTime        @default(now()) @db.Timestamp(3)
-  deletedAt     DateTime        @default(now()) @db.Timestamp(3)
+  updatedAt     DateTime        @updatedAt @db.Timestamp(3)
+  deletedAt     Boolean         @default(false)
   Collaborators Collaborators[]
 }
 
@@ -25,7 +25,7 @@ model Collaborators {
   name         String         @db.VarChar(250)
   createdAt    DateTime       @default(now()) @db.Timestamp(3)
   updatedAt    DateTime       @default(now()) @db.Timestamp(3)
-  deletedAt    DateTime       @default(now()) @db.Timestamp(3)
+  deletedAt    Boolean        @default(false)
   user         Users          @relation(fields: [userId], references: [id])
   userId       Int
   TimeTrackers TimeTrackers[]
@@ -39,7 +39,7 @@ model TimeTrackers {
   taskId         Int
   createdAt      DateTime      @default(now()) @db.Timestamp(3)
   updatedAt      DateTime      @default(now()) @db.Timestamp(3)
-  deletedAt      DateTime      @default(now()) @db.Timestamp(3)
+  deletedAt      Boolean       @default(false)
   collaborator   Collaborators @relation(fields: [collaboratorId], references: [id])
   collaboratorId Int
 }
@@ -50,7 +50,7 @@ model Tasks {
   description String   @db.VarChar(255)
   createdAt   DateTime @default(now()) @db.Timestamp(3)
   updatedAt   DateTime @default(now()) @db.Timestamp(3)
-  deletedAt   DateTime @default(now()) @db.Timestamp(3)
+  deletedAt   Boolean  @default(false)
   project     Projects @relation(fields: [projectID], references: [id])
   projectID   Int
 }
@@ -60,6 +60,6 @@ model Projects {
   name      String   @db.VarChar(250)
   createdAt DateTime @default(now()) @db.Timestamp(3)
   updatedAt DateTime @default(now()) @db.Timestamp(3)
-  deletedAt DateTime @default(now()) @db.Timestamp(3)
+  deletedAt Boolean  @default(false)
   Tasks     Tasks[]
 }
