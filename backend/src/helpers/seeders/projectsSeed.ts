@@ -9,15 +9,16 @@ export default async function projects() {
         create: [
           {
             name: 'tarefa 1 - proj.A',
-            description: 'descrição da tarefa 1 - proj.A'
+            description: 'descrição da tarefa 1 - proj.A',
+            collaboratorName: 'adadezer'
           },
           {
             name: 'tarefa 2 - proj.A',
-            description: 'descrição da tarefa 2 - proj.A'
+            description: 'descrição da tarefa 2 - proj.A',
           },
           {
             name: 'tarefa 3 - proj.A',
-            description: 'descrição da tarefa 3 - proj.A'
+            description: 'descrição da tarefa 3 - proj.A',
           },
         ]
       }
@@ -31,15 +32,16 @@ export default async function projects() {
         create: [
           {
             name: 'tarefa 1 - proj.B',
-            description: 'descrição da tarefa 1 - proj.B'
+            description: 'descrição da tarefa 1 - proj.B',
           },
           {
             name: 'tarefa 2 - proj.B',
-            description: 'descrição da tarefa 2 - proj.B'
+            description: 'descrição da tarefa 2 - proj.B',
+            collaboratorName: 'arthur'
           },
           {
             name: 'tarefa 3 - proj.B',
-            description: 'descrição da tarefa 3 - proj.B'
+            description: 'descrição da tarefa 3 - proj.B',
           },
         ]
       }
@@ -53,15 +55,16 @@ export default async function projects() {
         create: [
           {
             name: 'tarefa 1 - proj.C',
-            description: 'descrição da tarefa 1 - proj.C'
+            description: 'descrição da tarefa 1 - proj.C',
           },
           {
             name: 'tarefa 2 - proj.C',
-            description: 'descrição da tarefa 2 - proj.C'
+            description: 'descrição da tarefa 2 - proj.C',
           },
           {
             name: 'tarefa 3 - proj.C',
-            description: 'descrição da tarefa 3 - proj.C'
+            description: 'descrição da tarefa 3 - proj.C',
+            collaboratorName: 'fernando'
           },
         ]
       }

@@ -19,8 +19,10 @@ export default function Tasks() {
   } = useContext(IngaCodeContext);
 
   const getTasks = async () => {
+    const UrlMockAPI = "https://636c08487f47ef51e140c97e.mockapi.io/Tasks";
+    // const UrlBackend = "http://localhost:3001/tasks"
     try {
-      const result = await axios.get("https://636c08487f47ef51e140c97e.mockapi.io/Tasks");
+      const result = await axios.get(`${UrlMockAPI}`);
       setListTasks(result.data);
       setShouldUpdateEdit(false);
       setShouldUpdateDelete(false);
