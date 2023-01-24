@@ -1,4 +1,4 @@
-# Processo Seletivo Verzel
+# Processo Seletivo IngaCode
 
 ## ⚙️ Como Utilizar
 
@@ -6,7 +6,7 @@
 
 - `git@github.com:Adadezer/PSIngaCode.git`
 
-- `cd PSVerzel`
+- `cd PSIngaCode`
 
 2- Entre na pasta do frontend, instale as dependências e inicie a aplicação:
 
